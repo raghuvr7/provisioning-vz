@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Provisioning Disconnect</title>
+<script type="text/javascript">
+function confirmDisconnect() {
+	var r = confirm("Do you really want to disconnect?");
+	if (r == true) {
+	    x = "You pressed OK!";
+	} else {
+	    x = "You pressed Cancel!";
+	}
+}
+</script>
+</head>
+<body>
+<h1>Disconnect</h1>
+<h2>Order Details</h2>
+
+<button type="button" onclick="confirmDisconnect()">Disconnect</button>
+</body>
+</html>
