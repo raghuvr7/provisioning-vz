@@ -7,7 +7,8 @@
 function confirmDisconnect() {
 	var r = confirm("Do you really want to disconnect?");
 	if (r == true) {
-	    x = "You pressed OK!";
+		document.disconn.orderid.value = "1234";
+		document.disconn.submit();
 	} else {
 	    x = "You pressed Cancel!";
 	}
@@ -17,6 +18,9 @@ function confirmDisconnect() {
 <body>
 <h1>Disconnect</h1>
 <h2>Order Details</h2>
+<form name="disconn" action="Disconnect" method="post">
+    <input type="hidden" name="orderid">
+</form>
 
 <button type="button" onclick="confirmDisconnect()">Disconnect</button>
 </body>
