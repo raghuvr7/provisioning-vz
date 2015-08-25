@@ -22,7 +22,7 @@
 <label for="rb2">Provision an order</label></td></tr>
 
 
-<tr><td><input type="submit" value="submit" class="vzbtn"/></td></tr>
+<tr><td><input type="submit" value="Submit" class="vzbtn"/></td></tr>
 </table>
 </form>
 

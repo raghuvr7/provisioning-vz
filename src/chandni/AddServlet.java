@@ -1,9 +1,6 @@
-package chandni;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,29 +12,42 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("abc");
 		PrintWriter pw = response.getWriter();
 		// pw.print("fkjhntei");
 		// Device d=new Device();
 		String deviceid = request.getParameter("inp1");
+		System.out.println("gbgh");
 		String partnumber = request.getParameter("inp2");
 		String manufacturer = request.getParameter("inp3");
 		String zipcodestring= request.getParameter("inp4");
 		String portidstring = request.getParameter("inp5");
 		String status = request.getParameter("inp6");
 		String bandwidthstring = request.getParameter("inp7");
-		int zipcode=Integer.parseInt("zipcodestring");
-		int portid=Integer.parseInt("portidstring");
-		int bandwidth=Integer.parseInt("bandwidth");
+		String deviceId=request.getParameter("inp8");
+		int zipcode=Integer.parseInt(zipcodestring);
+		int portid=Integer.parseInt(portidstring);
+		int bandwidth=Integer.parseInt(bandwidthstring);
 		
 		//Device d=new Device(*,in1,in2,in3,in4,in5,in6,in7);
 		 DAOOrderToBillOracle dao=new  DAOOrderToBillOracle();
-		int a=dao.insertDevice(deviceid,partnumber,manufacturer,zipcode,portid,status,bandwidth);
+		int a=dao.insertDevice(deviceid,partnumber,manufacturer,zipcode,portid,status,bandwidth,deviceId);
         PrintWriter p=response.getWriter();
-        pw.print("Your device has been added");
-		
+        /*if(a==0){*/
+        p.print("Your device has been added");
+        /*}
+        else
+        {
+        	pw.print("Device couldn't be added");
+        }*/
 		System.out.println(deviceid);
 		System.out.println(partnumber);
 		System.out.println(manufacturer);
@@ -45,17 +55,8 @@ public class AddServlet extends HttpServlet {
 		System.out.println(portid);
 		System.out.println(status);
 		System.out.println(bandwidth);
+		System.out.println(deviceId);
 		
-
-		
-		/*
-		 * pw.print(in3); pw.print(in4); pw.print(in5); pw.print(in6);
-		 * pw.print(in7);
-		 */
-
-		/*
-		 * d=daoorder.addDevice(); daoorder.print();
-		 */
 
 	}
 }
