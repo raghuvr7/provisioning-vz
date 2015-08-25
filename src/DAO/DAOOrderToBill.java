@@ -29,7 +29,7 @@ public interface DAOOrderToBill {
 		
 		public void updateDeviceStatus(int sequenceNumber, String status);
 		public void updateCircuitStatus(int orderId, String status);
-		
+		public void updateDestinationPort(int oldOrderId, int destSequenceNo);
 		public Circuit getCircuitDetails(int orderId);
 		public List<Circuit> getAllCircuitsOfCustomer(int customerId);
 		

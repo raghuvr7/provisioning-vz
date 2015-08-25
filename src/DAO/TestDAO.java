@@ -5,8 +5,8 @@ import java.util.List;
 public class TestDAO {
 
 	public static void main(String[] args) {
-		/*DAOOrderToBill dao=new DAOOrderToBillOracle();
-		List<Order> list=dao.getProvisionReadyOrders();
+		DAOOrderToBill dao=new DAOOrderToBillOracle();
+		/*List<Order> list=dao.getProvisionReadyOrders();
 		Iterator<Order> it=list.iterator();
 		while(it.hasNext()){
 			System.out.println(it.next().toString());
@@ -34,6 +34,12 @@ public class TestDAO {
 		//System.out.println(""+dao.getServiceAddressId(4));
 		//System.out.println(dao.getCircuitDetails(1));
 		//System.out.println(dao.getAllCircuitsOfCustomer(1));
+//		dao.insertConnectionIntoCircuitDesign(1,
+//				11, 80, 90,
+//				120, "INEFFECT", "15-NOV-2015",
+//				"20-NOV-2015");
+		//dao.updateDestinationPort(80, 12);
+		//System.out.println(dao.getCircuitOrderIdForChangeOrder("1"));
 	}
 
 }

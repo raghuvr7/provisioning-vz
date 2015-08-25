@@ -482,14 +482,14 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select orderId from Orders_demo where serviceId="
-					+ serviceId + " and orderType='N'";
+			String query = "select order_Id from Orders_demo where service_Id="
+					+ serviceId + " and order_Type='NEW'";
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				return rs.getInt("orderId");
+				return rs.getInt("order_Id");
 			}
 
 		} catch (SQLException e) {
@@ -561,6 +561,34 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 			}
 		}
 
+	}
+	
+	public void updateDestinationPort(int oldOrderId, int destSequenceNo){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = createConnection();
+			
+			String query = "update Circuit_Design set destination_port=" + destSequenceNo
+					+ " where order_id=" + oldOrderId;
+			System.out.println(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public Circuit getCircuitDetails(int orderId) {
