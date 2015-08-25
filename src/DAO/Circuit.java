@@ -1,5 +1,13 @@
-package DAO;
+
 public class Circuit {
+	@Override
+	public String toString() {
+		return "Circuit [sourcePort=" + sourcePort + ", destinationPort="
+				+ destinationPort + ", orderId=" + orderId + ", customerId="
+				+ customerId + ", bandwidthMbps=" + bandwidthMbps + ", status="
+				+ status + ", dueDate=" + dueDate + ", modifiedDate="
+				+ modifiedDate + "]";
+	}
 	int sourcePort;
 	int destinationPort;
 	int orderId;

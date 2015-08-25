@@ -1,4 +1,3 @@
-package DAO;
 public class Device {
 
 	int sequenceNumber;
@@ -20,6 +19,15 @@ public class Device {
 		this.status = status;
 		this.bandwidthMbps = bandwidthMbps;
 		this.deviceType = deviceType;
+	}
+
+	@Override
+	public String toString() {
+		return "Device [sequenceNumber=" + sequenceNumber + ", deviceId="
+				+ deviceId + ", partNo=" + partNo + ", manufacturer="
+				+ manufacturer + ", zipcode=" + zipcode + ", portId=" + portId
+				+ ", status=" + status + ", bandwidthMbps=" + bandwidthMbps
+				+ ", deviceType=" + deviceType + "]";
 	}
 
 	public String getDeviceType() {

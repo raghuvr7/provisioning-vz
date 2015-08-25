@@ -1,4 +1,3 @@
-package DAO;
 import java.util.List;
 
 
@@ -9,17 +8,17 @@ public interface DAOOrderToBill {
 		
 
 		public List<Order> getProvisionReadyOrders() ;
-		public int getZipcode(int shippingAddressId) ;
+		public int getZipcode(int serviceAddressId) ;
 
 		public List<String> getDeviceIdsInZipcode(int zipcode);
 
-		public int getDeviceSeqNo(int deviceId, int portId);
+		public int getDeviceSeqNo(String deviceId, int portId);
 
 		public Device getDevice(int sequenceNumber);
-		public List<Integer> getVacantPortIdsInDevice(int deviceId) ;
+		public List<Integer> getVacantPortIdsInDevice(String deviceId) ;
 
-		public List<Integer> getAllPortIdsInDevice(int deviceId) ;
-		public List<Integer> getReservedPortIdsInDevice(int deviceId) ;
+		public List<Integer> getAllPortIdsInDevice(String deviceId) ;
+		public List<Integer> getReservedPortIdsInDevice(String deviceId) ;
 		public List<Integer> getAllZipcodes();
 
 	public int insertConnectionIntoCircuitDesign(int sourcePort,
@@ -31,15 +30,18 @@ public interface DAOOrderToBill {
 		public void updateDeviceStatus(int sequenceNumber, String status);
 		public void updateCircuitStatus(int orderId, String status);
 		
-		public Circuit getCircuitDetails(String orderId);
+		public Circuit getCircuitDetails(int orderId);
 		public List<Circuit> getAllCircuitsOfCustomer(int customerId);
+		
 		
 		public int getServiceAddressId(String custId);
 
 		
 		public Order getOrderDetails(int orderId) ;
-		public String getServiceId(String orderId);
-		public String getCustomerId(String orderId);
+		public String getServiceId(int orderId);
+		public String getCustomerId(int orderId);
+		
+		
 		
 		
 		

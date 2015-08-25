@@ -1,4 +1,3 @@
-package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -88,8 +87,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select customer_id,order_id,order_status,order_due_date,shipping_address_id from Order where order_status='PR'";
-			System.out.println(query);
+			String query = "select customer_id,order_id,order_status,order_due_date,service_address_id,service_id,order_type from Orders_Demo where order_status='PR'";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
@@ -100,8 +98,9 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 				order.setOrderId(rs.getInt("order_id"));
 				order.setOrderStatus(rs.getString("order_status"));
 				order.setOrderDueDate(rs.getString("order_due_date"));
-				order.setShippingAddressId(rs.getInt("shipping_address_id"));
+				order.setServiceAddressId(rs.getInt("service_address_id"));
 				order.setOrderType(rs.getString("order_type"));
+				order.setServiceId(rs.getInt("service_id"));
 				orderList.add(order);
 
 			}
@@ -123,15 +122,15 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 	}
 
-	public int getZipcode(int shippingAddressId) {
+	public int getZipcode(int serviceAddressId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
 			con = createConnection();
-			String query = "select zipcode from address where shipping_address_id="
-					+ shippingAddressId;
+			String query = "select zipcode from address where service_address_id="
+					+ serviceAddressId;
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
@@ -168,7 +167,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		List<String> deviceIds = new ArrayList<String>();
 		try {
 			con = createConnection();
-			String query = "select device_id from Device where zipcode="
+			String query = "select distinct device_id from Device where zipcode="
 					+ zipcode;
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -194,7 +193,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		return deviceIds;
 	}
 
-	public int getDeviceSeqNo(int deviceId, int portId) {
+	public int getDeviceSeqNo(String deviceId, int portId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -268,15 +267,15 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		return device;
 	}
 
-	public List<Integer> getVacantPortIdsInDevice(int deviceId) {
+	public List<Integer> getVacantPortIdsInDevice(String deviceId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Integer> portIds = new ArrayList<Integer>();
 		try {
 			con = createConnection();
-			String query = "select port_id from Device where deviceId="
-					+ deviceId + " and status='VACANT'";
+			String query = "select port_id from Device where device_id='"
+					+ deviceId + "' and status='VACANT'";
 
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -302,15 +301,15 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		return portIds;
 	}
 
-	public List<Integer> getAllPortIdsInDevice(int deviceId) {
+	public List<Integer> getAllPortIdsInDevice(String deviceId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Integer> portIds = new ArrayList<Integer>();
 		try {
 			con = createConnection();
-			String query = "select port_id from Device where deviceId="
-					+ deviceId;
+			String query = "select port_id from Device where device_id='"
+					+ deviceId+"'";
 
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -336,15 +335,15 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		return portIds;
 	}
 
-	public List<Integer> getReservedPortIdsInDevice(int deviceId) {
+	public List<Integer> getReservedPortIdsInDevice(String deviceId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Integer> portIds = new ArrayList<Integer>();
 		try {
 			con = createConnection();
-			String query = "select port_id from Device where deviceId="
-					+ deviceId + " and status='RESERVED'";
+			String query = "select port_id from Device where device_id='"
+					+ deviceId + "' and status='RESERVED'";
 
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -446,7 +445,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 		PreparedStatement pstmt = null;
 		Connection con = null;
 		try {
-			String query = "insert into Circuit values(?,?,?,?,?,?,?,?)";
+			String query = "insert into Circuit_design values(?,?,?,?,?,?,?,?)";
 			con = createConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, sourcePort);
@@ -483,7 +482,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select orderId from Order where serviceId="
+			String query = "select orderId from Orders_demo where serviceId="
 					+ serviceId + " and orderType='N'";
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
@@ -516,9 +515,8 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "update Device set status=" + status
-					+ " where sequence_number=" + sequenceNumber;
-			System.out.println(query);
+			String query = "update Device set status='" + status
+					+ "' where sequence_number=" + sequenceNumber;
 			pstmt = con.prepareStatement(query);
 			pstmt.executeUpdate();
 
@@ -544,9 +542,8 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "update Circuit set status=" + status
-					+ " where orderId=" + orderId;
-			System.out.println(query);
+			String query = "update Circuit_Design set status='" + status
+					+ "' where order_id=" + orderId;
 			pstmt = con.prepareStatement(query);
 			pstmt.executeUpdate();
 
@@ -566,7 +563,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 	}
 
-	public Circuit getCircuitDetails(String orderId) {
+	public Circuit getCircuitDetails(int orderId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -574,7 +571,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select * from circuitDesign where orderId="
+			String query = "select * from circuit_Design where order_id="
 					+ orderId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
@@ -587,8 +584,8 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 				int customerId = rs.getInt("customer_id");
 				int bandwidthMbps = rs.getInt("bandwidth_mbps");
 				String status = rs.getString("status");
-				String dueDate = rs.getString("dueDate");
-				String modifiedDate = rs.getString("modifiedDate");
+				String dueDate = rs.getString("due_Date");
+				String modifiedDate = rs.getString("modified_Date");
 
 				circuit = new Circuit(sourcePort, destinationPort, orderIdInt,
 						customerId, bandwidthMbps, status, dueDate,
@@ -621,7 +618,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select * from circuitDesign where customerId="
+			String query = "select * from circuit_Design where customer_id="
 					+ customerId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
@@ -634,8 +631,8 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 //				int customerId = rs.getInt("customer_id");
 				int bandwidthMbps = rs.getInt("bandwidth_mbps");
 				String status = rs.getString("status");
-				String dueDate = rs.getString("dueDate");
-				String modifiedDate = rs.getString("modifiedDate");
+				String dueDate = rs.getString("due_date");
+				String modifiedDate = rs.getString("modified_date");
 
 				Circuit circuit = new Circuit(sourcePort, destinationPort, orderIdInt,
 						customerId, bandwidthMbps, status, dueDate,
@@ -668,14 +665,14 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select serviceAddressId from Customer where custId="
+			String query = "select service_address_id from orders_demo where customer_id="
 					+ custId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
 			if (rs.next())
-				return rs.getInt("serviceAddressId");
+				return rs.getInt("service_address_id");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -702,7 +699,7 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 		try {
 			con = createConnection();
-			String query = "select * from Order where orderId=" + orderId;
+			String query = "select * from Orders_demo where order_Id=" + orderId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -712,11 +709,12 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 				// orderId known;
 				String orderStatus = rs.getString("order_status");
 				String orderDueDate = rs.getString("order_due_date");
-				int shippingAddressId = rs.getInt("shipping_address_id");
+				int serviceAddressId = rs.getInt("service_address_id");
 				String orderType = rs.getString("order_type");
+				int serviceId=rs.getInt("service_id");
 				order = new Order(customerId, orderId, orderStatus,
-						orderDueDate, shippingAddressId, orderType);
-
+						orderDueDate, serviceAddressId,serviceId, orderType);
+				
 			}
 
 		} catch (SQLException e) {
@@ -736,14 +734,14 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 	}
 
-	public String getServiceId(String orderId) {
+	public String getServiceId(int orderId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
 			con = createConnection();
-			String query = "select service_id from Order where order_id="
+			String query = "select service_id from Orders_demo where order_id="
 					+ orderId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
@@ -769,14 +767,14 @@ public class DAOOrderToBillOracle implements DAOOrderToBill {
 
 	}
 
-	public String getCustomerId(String orderId) {
+	public String getCustomerId(int orderId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
 			con = createConnection();
-			String query = "select customer_id from Order where order_id="
+			String query = "select customer_id from Orders_demo where order_id="
 					+ orderId;
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
