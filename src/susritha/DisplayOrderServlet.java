@@ -1,70 +1,41 @@
-package disconnetmodify;
+package susritha;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.*;
-
-
 /**
- * Servlet implementation class Disconnect
+ * Servlet implementation class DisplayOrderServlet
  */
-@WebServlet("/Disconnect")
-public class Disconnect extends HttpServlet {
+@WebServlet("/DisplayOrderServlet")
+public class DisplayOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Disconnect() {
+    public DisplayOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-	
-		System.out.println("Disconnect servlet called.");
-	}
-
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String orderid = request.getParameter("orderid");
-		DAOOrderToBillOracle dao = new DAOOrderToBillOracle();
-		String serviceid = dao.getServiceId(orderid);
-		dao.updateCircuitStatus(, "disconnected");
-		dao.updateCircuitStatus(orderId, status);
-		
-		
-		PrintWriter pw;
-		pw=response.getWriter();
-		pw.print("Done");
-		
+		//create object for DAO
+		//Retrieve the current details of the given order using DAO Method
+		//Redirect to JSP and send the details
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 	}
 
 }
