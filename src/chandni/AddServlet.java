@@ -1,15 +1,22 @@
+package chandni;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 
+
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.DAOOrderToBillOracle;
+
 /**
  * Servlet implementation class AddServlet
  */
+@WebServlet("/AddServlet")
 public class AddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
@@ -38,7 +45,7 @@ public class AddServlet extends HttpServlet {
 		int bandwidth=Integer.parseInt(bandwidthstring);
 		
 		//Device d=new Device(*,in1,in2,in3,in4,in5,in6,in7);
-		 DAOOrderToBillOracle dao=new  DAOOrderToBillOracle();
+		DAOOrderToBillOracle dao=new  DAOOrderToBillOracle();
 		int a=dao.insertDevice(deviceid,partnumber,manufacturer,zipcode,portid,status,bandwidth,deviceId);
         PrintWriter p=response.getWriter();
         /*if(a==0){*/

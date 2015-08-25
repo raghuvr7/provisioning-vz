@@ -50,8 +50,6 @@ public class Disconnect extends HttpServlet {
 		int orderid = Integer.parseInt(request.getParameter("orderid"));
 		DAOOrderToBillOracle dao = new DAOOrderToBillOracle();
 		dao.updateCircuitStatus(orderid, "disconnected");
-		
-		
 		PrintWriter pw;
 		pw=response.getWriter();
 		pw.print("Done");

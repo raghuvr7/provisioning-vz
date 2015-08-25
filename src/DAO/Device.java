@@ -1,3 +1,4 @@
+package DAO;
 public class Device {
 
 	int sequenceNumber;

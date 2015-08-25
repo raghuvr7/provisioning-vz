@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import DAO.DAOOrderToBill;
+import DAO.DAOOrderToBillOracle;
+import DAO.Order;
 public class OrdersListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -14,8 +18,8 @@ public class OrdersListServlet extends HttpServlet {
 		
 		int orderid;
 		String ordertype;
-		orderId=Integer.parseInt(request.getParameter("orderRadio"));
-		DAOOrdertoBill dob = new DAOOrdertoBillOracle();
+		orderid=Integer.parseInt(request.getParameter("orderRadio"));
+		DAOOrderToBill dob = new DAOOrderToBillOracle();
 		List<Order> orderlist= dob.getProvisionReadyOrders();
 		
 		for (int i=0;i<orderlist.length;i++)
