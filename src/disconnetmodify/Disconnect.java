@@ -47,11 +47,9 @@ public class Disconnect extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String orderid = request.getParameter("orderid");
+		int orderid = Integer.parseInt(request.getParameter("orderid"));
 		DAOOrderToBillOracle dao = new DAOOrderToBillOracle();
-		String serviceid = dao.getServiceId(orderid);
-		dao.updateCircuitStatus(, "disconnected");
-		dao.updateCircuitStatus(orderId, status);
+		dao.updateCircuitStatus(orderid, "disconnected");
 		
 		
 		PrintWriter pw;

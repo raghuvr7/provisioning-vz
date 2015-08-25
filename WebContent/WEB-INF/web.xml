@@ -89,7 +89,7 @@
     <servlet-name>ProvisionReady</servlet-name>
     <url-pattern>/ProvisionReady</url-pattern>
   </servlet-mapping>
-  <servlet>
+ <!--  <servlet>
     <description></description>
     <display-name>ProvisionReadyServlet</display-name>
     <servlet-name>ProvisionReadyServlet</servlet-name>
@@ -98,5 +98,5 @@
   <servlet-mapping>
     <servlet-name>ProvisionReadyServlet</servlet-name>
     <url-pattern>/ProvisionReadyServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 </web-app>
