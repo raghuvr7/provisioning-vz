@@ -25,10 +25,10 @@ public class DeviceServlet extends HttpServlet {
 		
 		String zipcode=request.getParameter("zipcode");
 		System.out.println(zipcode);
-		List<Device> ld = new DAO().distinctDeviceId(zipcode);
+		List<Device> ld = new DAOOrderToBillOracle().getDeviceIdsInZipcode(zipcode);
 		PrintWriter out=response.getWriter();
 		out.write("Device: ");
-		out.write("<select>");
+		out.write("<select id='device' onchange='javascript:checkPort()'>");
 		out.write("<option>");
 		out.write("Select Device");
 		out.write("</option>");
